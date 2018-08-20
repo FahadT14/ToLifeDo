@@ -32,7 +32,14 @@
                             <outlet property="delegate" destination="pXK-3M-6Kw" id="buk-Fd-CPG"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="ToLifeDo" id="JOs-rR-lge"/>
+                    <navigationItem key="navigationItem" title="ToLifeDo" id="JOs-rR-lge">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="3rP-da-vPC">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <connections>
+                                <action selector="AddButtonPressed:" destination="pXK-3M-6Kw" id="ciq-DF-9H5"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="K9U-tK-6Ev" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
