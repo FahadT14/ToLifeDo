@@ -13,29 +13,19 @@ class ToLifeDo: UITableViewController {
     
     var taskArray = [TodoItem]()
     
-    let defaults = UserDefaults.standard
+     let datapath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent("Items.plist")
+    
+    //let defaults = UserDefaults.standard
     
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        let newItem = TodoItem()
-        newItem.item = "Fahad"
-        taskArray.append(newItem)
-        
-        let newItem1 = TodoItem()
-        newItem1.item = "Ali"
-        taskArray.append(newItem1)
-        
-        let newItem2 = TodoItem()
-        newItem2.item = "Mustafa"
-        taskArray.append(newItem2)
-        
-        
-        if let item = defaults.array(forKey: "TodoListArray") as? [TodoItem] {
-            taskArray = item
-
-        }
+        print(datapath)
+        loadData()
+//        if let item = defaults.array(forKey: "TodoListArray") as? [TodoItem] {
+//            taskArray = item
+//
+//        }
         // Do any additional setup after loading the view, typically from a nib.
     }
 
@@ -75,6 +65,9 @@ class ToLifeDo: UITableViewController {
        // print(taskArray[indexPath.row])
         
         taskArray[indexPath.row].done = !taskArray[indexPath.row].done
+        
+        saveData()
+        
 //
 //        if taskArray[indexPath.row].done == false{
 //            taskArray[indexPath.row].done = true
@@ -114,7 +107,12 @@ class ToLifeDo: UITableViewController {
     
            //self.taskArray.append(textField.text!)
             
-           self.defaults.setValue(self.taskArray, forKey: "TodoListArray")
+            self.saveData()
+            
+            
+            
+            
+           //self.defaults.setValue(self.taskArray, forKey: "TodoListArray")
             
             self.tableView.reloadData()
         }
@@ -135,6 +133,44 @@ class ToLifeDo: UITableViewController {
         
         
     }
+    
+    // Enconding the data with NSCODER
+    
+    func saveData(){
+        
+        let encoder = PropertyListEncoder()
+        
+        do{
+            
+            
+            let data = try encoder.encode(taskArray)
+            try data.write(to: datapath!)
+            
+        } catch {
+            
+            print("Error encoing the array \(error)")
+            
+        }
+        
+    }
+    
+    func loadData(){
+        
+            
+        if let data = try? Data(contentsOf: datapath!){
+            
+            let decoder = PropertyListDecoder()
+            do{
+                taskArray = try decoder.decode([TodoItem].self, from: data)
+            } catch{
+                
+                print("Decoder Error")
+                
+            }
+        }
+    }
+    
+    
     
 }
 
