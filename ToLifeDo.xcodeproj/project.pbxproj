@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8A3A8DD5F332B159853D3CE3 /* Pods_ToLifeDo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A98A469D87AE6976B17A709 /* Pods_ToLifeDo.framework */; };
 		8D3E2B932131E0EB00E9F8AA /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8D3E2B912131E0EB00E9F8AA /* Model.xcdatamodeld */; };
 		8D4C392D2137328E00A748B4 /* CatogaryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D4C392C2137328E00A748B4 /* CatogaryTableViewController.swift */; };
 		8DB8094E2129F7300096B8B4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB8094D2129F7300096B8B4 /* AppDelegate.swift */; };
@@ -17,6 +18,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		458DD431AF45B7AC717FD411 /* Pods-ToLifeDo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ToLifeDo.release.xcconfig"; path = "Pods/Target Support Files/Pods-ToLifeDo/Pods-ToLifeDo.release.xcconfig"; sourceTree = "<group>"; };
+		8A98A469D87AE6976B17A709 /* Pods_ToLifeDo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ToLifeDo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D3E2B922131E0EB00E9F8AA /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		8D4C392C2137328E00A748B4 /* CatogaryTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatogaryTableViewController.swift; sourceTree = "<group>"; };
 		8DB8094A2129F7300096B8B4 /* ToLifeDo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ToLifeDo.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -26,6 +29,7 @@
 		8DB809542129F7310096B8B4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8DB809572129F7310096B8B4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8DB809592129F7310096B8B4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A07C961EB37E5CE163056ED1 /* Pods-ToLifeDo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ToLifeDo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ToLifeDo/Pods-ToLifeDo.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -33,6 +37,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8A3A8DD5F332B159853D3CE3 /* Pods_ToLifeDo.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -44,6 +49,8 @@
 			children = (
 				8DB8094C2129F7300096B8B4 /* ToLifeDo */,
 				8DB8094B2129F7300096B8B4 /* Products */,
+				B15CEAB96B1B1CD5FFF4E6CB /* Pods */,
+				946898CCFB180826EA8F21CD /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -102,6 +109,23 @@
 			path = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		946898CCFB180826EA8F21CD /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				8A98A469D87AE6976B17A709 /* Pods_ToLifeDo.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		B15CEAB96B1B1CD5FFF4E6CB /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				A07C961EB37E5CE163056ED1 /* Pods-ToLifeDo.debug.xcconfig */,
+				458DD431AF45B7AC717FD411 /* Pods-ToLifeDo.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -109,9 +133,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8DB8095C2129F7310096B8B4 /* Build configuration list for PBXNativeTarget "ToLifeDo" */;
 			buildPhases = (
+				ECD3E93613CFA2F768F8764A /* [CP] Check Pods Manifest.lock */,
 				8DB809462129F7300096B8B4 /* Sources */,
 				8DB809472129F7300096B8B4 /* Frameworks */,
 				8DB809482129F7300096B8B4 /* Resources */,
+				74D414AE9619C24C06D8CF5E /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -167,6 +193,47 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		74D414AE9619C24C06D8CF5E /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-ToLifeDo/Pods-ToLifeDo-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Realm/Realm.framework",
+				"${BUILT_PRODUCTS_DIR}/RealmSwift/RealmSwift.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RealmSwift.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ToLifeDo/Pods-ToLifeDo-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		ECD3E93613CFA2F768F8764A /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-ToLifeDo-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		8DB809462129F7300096B8B4 /* Sources */ = {
@@ -318,6 +385,7 @@
 		};
 		8DB8095D2129F7310096B8B4 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A07C961EB37E5CE163056ED1 /* Pods-ToLifeDo.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -336,6 +404,7 @@
 		};
 		8DB8095E2129F7310096B8B4 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 458DD431AF45B7AC717FD411 /* Pods-ToLifeDo.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
