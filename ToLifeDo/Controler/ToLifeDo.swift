@@ -7,21 +7,32 @@
 //
 
 import UIKit
+import CoreData
 
 class ToLifeDo: UITableViewController {
     
     
     var taskArray = [TodoItem]()
     
-     let datapath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent("Items.plist")
+    var selectedCatogary : Catogary? {
+        
+        didSet{
+            loadData()
+        }
+    }
     
+//
+//     let datapath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent("Items.plist")
+//
     //let defaults = UserDefaults.standard
     
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(datapath)
-        loadData()
+        
+        
+
+        
 //        if let item = defaults.array(forKey: "TodoListArray") as? [TodoItem] {
 //            taskArray = item
 //
@@ -38,7 +49,7 @@ class ToLifeDo: UITableViewController {
         
         let item = taskArray[indexPath.row]
         
-        cell.textLabel?.text = item.item
+        cell.textLabel?.text = item.title
         
         cell.accessoryType = item.done == true ? .checkmark : .none
         
@@ -64,7 +75,19 @@ class ToLifeDo: UITableViewController {
         
        // print(taskArray[indexPath.row])
         
-        taskArray[indexPath.row].done = !taskArray[indexPath.row].done
+        
+        
+        //taskArray[indexPath.row].done = !taskArray[indexPath.row].done
+        
+        let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+        
+        context.delete(taskArray[indexPath.row])
+        
+        taskArray.remove(at: indexPath.row)
+        
+        
+        
+      
         
         saveData()
         
@@ -100,8 +123,13 @@ class ToLifeDo: UITableViewController {
         
         let action = UIAlertAction(title: "Add Item", style: .default) { (action) in
             
-            let newItem = TodoItem()
-            newItem.item = textField.text!
+            let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+            
+            let newItem = TodoItem(context: context)
+            
+            newItem.title = textField.text!
+            newItem.done = false
+            newItem.catogary = self.selectedCatogary
             
             self.taskArray.append(newItem)
     
@@ -138,38 +166,91 @@ class ToLifeDo: UITableViewController {
     
     func saveData(){
         
-        let encoder = PropertyListEncoder()
-        
         do{
             
+            let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+            try context.save()
             
-            let data = try encoder.encode(taskArray)
-            try data.write(to: datapath!)
+          } catch {
             
-        } catch {
-            
-            print("Error encoing the array \(error)")
-            
+            print("Error Saving Context \(error)")
         }
+        
+        self.tableView.reloadData()
         
     }
     
-    func loadData(){
+    func loadData(with request : NSFetchRequest<TodoItem> = TodoItem.fetchRequest(), predicate : NSPredicate? = nil){
         
+        let catogaryPredicate = NSPredicate(format: "catogary.name MATCHES %@", selectedCatogary!.name!)
+        
+        if let addictionalPredicate = predicate {
             
-        if let data = try? Data(contentsOf: datapath!){
+            request.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [catogaryPredicate , addictionalPredicate])
+        } else {
+            request.predicate = catogaryPredicate
+        }
+        
+        
+//        let compoundPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [catogaryPredicate, predicate])
+//
+//        request.predicate = compoundPredicate
+        
+        let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+        do{
+        
+           taskArray = try context.fetch(request)
             
-            let decoder = PropertyListDecoder()
-            do{
-                taskArray = try decoder.decode([TodoItem].self, from: data)
-            } catch{
+        }catch{
+            print(error)
+            
+            
+        }
+        tableView.reloadData()
+    }
+    
+  
+    
+
+}
+
+extension ToLifeDo : UISearchBarDelegate {
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        
+        let request : NSFetchRequest<TodoItem> = TodoItem.fetchRequest()
+        
+        let predicater = NSPredicate(format: "title CONTAINS[cd] %@", searchBar.text!)
+        
+        request.predicate = predicater
+        
+        let sortDesc = NSSortDescriptor(key: "title", ascending: true)
+        
+        request.sortDescriptors = [sortDesc]
+        
+        //let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+
+       loadData(with: request , predicate: predicater)
+        
+        tableView.reloadData()
+        
+        
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        
+        if searchBar.text?.count == 0 {
+            
+           loadData()
+            
+            DispatchQueue.main.async {
                 
-                print("Decoder Error")
-                
+                searchBar.resignFirstResponder()
             }
+            
+            
         }
     }
-    
     
     
 }
