@@ -7,12 +7,16 @@
 //
 
 import UIKit
-import CoreData
+import RealmSwift
 
 class CatogaryTableViewController: UITableViewController {
     
+    let realm = try! Realm()
     
-    var catogaryArray = [Catogary]()
+    
+    
+    var catogaryArray : Results<Catogary>?
+    
     
     
 
@@ -32,9 +36,7 @@ class CatogaryTableViewController: UITableViewController {
         
         let  cell = tableView.dequeueReusableCell(withIdentifier: "CatogaryCell", for: indexPath)
         
-        let item = catogaryArray[indexPath.row]
-        
-        cell.textLabel?.text = item.name
+        cell.textLabel?.text = catogaryArray?[indexPath.row].name ?? "No catagory added yet"
         
         return cell
         
@@ -42,7 +44,7 @@ class CatogaryTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return catogaryArray.count
+        return catogaryArray?.count ?? 1
         
     }
     
@@ -59,8 +61,7 @@ class CatogaryTableViewController: UITableViewController {
         
         if let indexPath = tableView.indexPathForSelectedRow {
             
-            destinationVC.selectedCatogary = catogaryArray[indexPath.row]
-        
+            destinationVC.selectedCatogary = catogaryArray?[indexPath.row] ?? catogaryArray?[0]
         }
         
     }
@@ -75,15 +76,12 @@ class CatogaryTableViewController: UITableViewController {
         
         let action = UIAlertAction(title: "Add New Item", style: .default) { (alert) in
             
-            let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
             
-            let cat = Catogary(context: context)
+            let cat = Catogary()
             
             cat.name = textField.text!
             
-            self.catogaryArray.append(cat)
-            
-            self.saveData()
+            self.saveData(catogary: cat)
             
             self.tableView.reloadData()
             
@@ -113,16 +111,14 @@ class CatogaryTableViewController: UITableViewController {
     }
     
     
-    //Mark: - Core Data Funcationality
-    
-    
-    
-    func saveData() {
+    func saveData(catogary : Catogary) {
         
-        let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+        
         
         do{
-            try context.save()
+            try realm.write {
+                realm.add(catogary)
+            }
             
         }
         catch{
@@ -137,21 +133,7 @@ class CatogaryTableViewController: UITableViewController {
     
     func loadData(){
         
-        let request : NSFetchRequest<Catogary> = Catogary.fetchRequest()
+        catogaryArray = realm.objects(Catogary.self)
         
-        let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-        
-        do{
-            catogaryArray = try context.fetch(request)
-            
-            
-        }catch {
-            print("error while reloading")
-            
-        }
-        tableView.reloadData()
-        
-    }
-    
-
+      }
 }
