@@ -8,15 +8,17 @@
 
 import UIKit
 import RealmSwift
+import ChameleonFramework
 
-class ToLifeDo: UITableViewController {
+class ToLifeDo: SwipTableViewController {
     
     
     var taskArray : Results<Item>?
     
     var realm = try! Realm()
     
-    
+    @IBOutlet weak var searchbar: UISearchBar!
+    //var catogaryColour : String = ""
     
     var selectedCatogary : Catogary? {
         
@@ -28,19 +30,53 @@ class ToLifeDo: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        tableView.rowHeight = 69.0
+        tableView.separatorStyle = .none
+        
+        
+        if let colourHexa = selectedCatogary?.colour{
+            navigationController?.navigationBar.barTintColor = UIColor(hexString: colourHexa)
+        }
+        
+        
         
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        if let colourHexa = selectedCatogary?.colour{
+            title = selectedCatogary!.name
+            
+            guard let nav = navigationController?.navigationBar else {
+                fatalError("App crashed")
+            }
+            if let navBarColour = UIColor(hexString: colourHexa){
+                nav.barTintColor = navBarColour
+                searchbar.barTintColor = navBarColour
+                nav.tintColor = ContrastColorOf(navBarColour, returnFlat: true)
+                nav.largeTitleTextAttributes = [NSAttributedStringKey.foregroundColor : ContrastColorOf(navBarColour, returnFlat: true)]
+            }
+            
+            
+                    }
+    }
     
     
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "TaskToDo", for: indexPath)
+        let cell = super.tableView(tableView, cellForRowAt: indexPath)
         
         if  let item = taskArray?[indexPath.row]{
         
         cell.textLabel?.text = item.list
+            
+            if let colour = UIColor(hexString: selectedCatogary!.colour)?.darken(byPercentage: CGFloat(indexPath.row ) / CGFloat(taskArray!.count)){
+                
+                cell.backgroundColor = colour
+                cell.textLabel?.textColor = ContrastColorOf(colour, returnFlat: true)
+                
+            }
+            
         cell.accessoryType = item.done == true ? .checkmark : .none
             
         }else{
@@ -137,6 +173,23 @@ class ToLifeDo: UITableViewController {
         
     }
     
+    override func updatDataModel(at indexPath: IndexPath) {
+        
+        if let itemForDeletion = self.taskArray?[indexPath.row] {
+            
+            do{
+                try realm.write {
+                    realm.delete(itemForDeletion)
+                }
+                
+            }catch{
+                print("Error While Deleting Item \(error)")
+            }
+            
+        }
+        
+    }
+    
         
     }
 
@@ -170,6 +223,6 @@ extension ToLifeDo : UISearchBarDelegate {
 
         }
 }
-
+    
 
 }

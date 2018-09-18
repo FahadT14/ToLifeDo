@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		8A3A8DD5F332B159853D3CE3 /* Pods_ToLifeDo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A98A469D87AE6976B17A709 /* Pods_ToLifeDo.framework */; };
+		8D117E88214FE330003EA86F /* SwipTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D117E87214FE330003EA86F /* SwipTableViewController.swift */; };
 		8D4C392D2137328E00A748B4 /* CatogaryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D4C392C2137328E00A748B4 /* CatogaryTableViewController.swift */; };
 		8D5BBE762145541E00101336 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D5BBE752145541E00101336 /* Item.swift */; };
 		8D5BBE782145543000101336 /* Catogary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D5BBE772145543000101336 /* Catogary.swift */; };
@@ -21,6 +22,7 @@
 /* Begin PBXFileReference section */
 		458DD431AF45B7AC717FD411 /* Pods-ToLifeDo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ToLifeDo.release.xcconfig"; path = "Pods/Target Support Files/Pods-ToLifeDo/Pods-ToLifeDo.release.xcconfig"; sourceTree = "<group>"; };
 		8A98A469D87AE6976B17A709 /* Pods_ToLifeDo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ToLifeDo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8D117E87214FE330003EA86F /* SwipTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipTableViewController.swift; sourceTree = "<group>"; };
 		8D4C392C2137328E00A748B4 /* CatogaryTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatogaryTableViewController.swift; sourceTree = "<group>"; };
 		8D5BBE752145541E00101336 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		8D5BBE772145543000101336 /* Catogary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Catogary.swift; sourceTree = "<group>"; };
@@ -90,6 +92,7 @@
 			isa = PBXGroup;
 			children = (
 				8D4C392C2137328E00A748B4 /* CatogaryTableViewController.swift */,
+				8D117E87214FE330003EA86F /* SwipTableViewController.swift */,
 				8DB8094F2129F7300096B8B4 /* ToLifeDo.swift */,
 			);
 			path = Controler;
@@ -205,13 +208,17 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-ToLifeDo/Pods-ToLifeDo-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/ChameleonFramework/ChameleonFramework.framework",
 				"${BUILT_PRODUCTS_DIR}/Realm/Realm.framework",
 				"${BUILT_PRODUCTS_DIR}/RealmSwift/RealmSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/SwipeCellKit/SwipeCellKit.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ChameleonFramework.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RealmSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwipeCellKit.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -245,6 +252,7 @@
 			files = (
 				8D5BBE762145541E00101336 /* Item.swift in Sources */,
 				8D5BBE782145543000101336 /* Catogary.swift in Sources */,
+				8D117E88214FE330003EA86F /* SwipTableViewController.swift in Sources */,
 				8DB809502129F7300096B8B4 /* ToLifeDo.swift in Sources */,
 				8DB8094E2129F7300096B8B4 /* AppDelegate.swift in Sources */,
 				8D4C392D2137328E00A748B4 /* CatogaryTableViewController.swift in Sources */,

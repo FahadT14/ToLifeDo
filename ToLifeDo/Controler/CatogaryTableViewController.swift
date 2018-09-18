@@ -8,8 +8,9 @@
 
 import UIKit
 import RealmSwift
+import ChameleonFramework
 
-class CatogaryTableViewController: UITableViewController {
+class CatogaryTableViewController: SwipTableViewController{
     
     let realm = try! Realm()
     
@@ -24,6 +25,8 @@ class CatogaryTableViewController: UITableViewController {
         super.viewDidLoad()
         
         loadData()
+        tableView.separatorStyle = .none
+        tableView.rowHeight = 80.0
          
         
     }
@@ -34,12 +37,23 @@ class CatogaryTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let  cell = tableView.dequeueReusableCell(withIdentifier: "CatogaryCell", for: indexPath)
+       let cell = super.tableView(tableView, cellForRowAt: indexPath)
         
-        cell.textLabel?.text = catogaryArray?[indexPath.row].name ?? "No catagory added yet"
+        if let catogary = catogaryArray?[indexPath.row]{
+            
+            guard let colour = UIColor(hexString: catogary.colour) else {fatalError()}
+            cell.textLabel?.text = catogary.name
+            cell.backgroundColor = colour
+            cell.textLabel?.textColor = ContrastColorOf(colour, returnFlat: true)
+        }
+        
+       
+        
+      
+        
+        
         
         return cell
-        
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -62,6 +76,7 @@ class CatogaryTableViewController: UITableViewController {
         if let indexPath = tableView.indexPathForSelectedRow {
             
             destinationVC.selectedCatogary = catogaryArray?[indexPath.row] ?? catogaryArray?[0]
+            //destinationVC.catogaryColour = catogaryArray?[indexPath.row].colour ?? "1D9BF6"
         }
         
     }
@@ -80,6 +95,8 @@ class CatogaryTableViewController: UITableViewController {
             let cat = Catogary()
             
             cat.name = textField.text!
+            
+            cat.colour = UIColor.randomFlat.hexValue()
             
             self.saveData(catogary: cat)
             
@@ -136,4 +153,24 @@ class CatogaryTableViewController: UITableViewController {
         catogaryArray = realm.objects(Catogary.self)
         
       }
+    
+    override func updatDataModel(at indexPath: IndexPath) {
+        
+        if let catogaryForDeletion = self.catogaryArray?[indexPath.row]{
+                            do{
+            
+                                try self.realm.write {
+                                    self.realm.delete(catogaryForDeletion)
+                                }
+                            }catch{
+                                print("Error While deleting")
+                            }
+            
+                        }
+    }
+    
 }
+
+
+    
+
